@@ -1,0 +1,18 @@
+<h1>Here's Your Post</h1>
+
+Title: <%= @post.title %><br>
+URL: <%= @post.url %><br>
+Post: <%= @post.content %><br>
+
+<%= link_to "Edit Post", edit_post_url(@post) %><br>
+
+<%= link_to "Add Comment", new_post_comment_url(@post) %><br>
+
+<% @post.top_level_comments.try(:each) do |comment| %>
+  <ul>
+    <%= link_to comment.content, comment_url(comment) %>
+    <%= render "comment", comment: comment %>
+  </ul>
+<% end %>
+
+<%= link_to "Go back to Subs", subs_url %>

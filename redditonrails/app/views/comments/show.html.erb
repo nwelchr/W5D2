@@ -1,0 +1,21 @@
+<h1>Comment!</h1>
+
+<%= @comment.content %><br>
+
+<% @comment.child_comments.try(:each) do |comment| %><br>
+  <%= comment.content %>
+<% end %>
+
+<h1>Add Comment</h1>
+
+<form action="<%= comments_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="comment[post_id]" value=" <%= @comment.post_id %>">
+  <input type="hidden" name="comment[parent_comment_id]" value="<%= @comment.id %>">
+
+  <label>Comment
+    <textarea name="comment[content]" rows="8" cols="80"></textarea>
+  </label>
+
+  <input type="submit" value="Create Comment">
+</form>
